@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: deploy-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /shoppingcart
+        backend:
+          serviceName: tomcat-service
+          servicePort: 8080
+      - path: /apache
+        backend:
+          serviceName: apache-service
+          servicePort: 80
+      - path: /nginx
+        backend:
+          serviceName: nginx-service
+          servicePort: 80

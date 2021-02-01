@@ -1,0 +1,36 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: apache-app
+  namespace: kamal
+  labels:
+    app: apache
+spec:
+  selector:
+    matchLabels:
+      app: apache
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: apache
+    spec:
+      containers:
+      - name: apache-app
+        image: 811847782524.dkr.ecr.ap-southeast-1.amazonaws.com/photo:latest
+        ports:
+        - containerPort: 80
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: apache-service
+  namespace: kamal
+spec:
+  selector:
+    app: apache
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
